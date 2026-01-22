@@ -1,0 +1,152 @@
+@if (loaded) {
+  <div class="row my-3">
+    <div class="col-12 my-2">
+      <h2 class="text-center text-secondary">{{idJuguete?'EDITANDO '+nombre.value : 'NUEVO JUGUETE'}}</h2>
+    </div>
+    <div class="col-md-6">
+      <form [formGroup]="formJuguete" (ngSubmit)="onSubmit()">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control"
+                 formControlName="nombre"
+                 id="nombre" placeholder="Nombre">
+          <label for="nombre">Nombre</label>
+          @if (nombre.invalid && (nombre.dirty || nombre.touched)){
+            <div class="alert alert-danger">
+              @if (nombre.errors['required']){
+                <div class="small text-danger">Nombre es obligatorio</div>
+              }
+              @if (nombre.errors['maxlength']){
+                <div class="small text-danger">Nombre tiene que tener máximo 50 caracteres</div>
+              }
+              @if (nombre.errors['minlength']){
+                <div class="small text-danger">Nombre tiene que tener mínimo 2 caracteres</div>
+              }
+              @if (nombre.errors['notOnlyWhiteSpace']){
+                <div class="small text-danger">Nombre no puede ser solo espacios en blanco</div>
+              }
+              @if (nombre.errors['forbiddenWord']){
+                <div class="small text-danger">Nombre no puede contener la palabra <strong>sex</strong></div>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control"
+                 formControlName="categoria"
+                 id="categoria" placeholder="Categoría">
+          <label for="categoria">Categoría</label>
+          @if (categoria.invalid && (categoria.dirty || categoria.touched)){
+            <div class="alert alert-danger">
+              @if (categoria.errors['required']){
+                <div class="small text-danger">Categoria es obligatorio</div>
+              }
+              @if (categoria.errors['maxlength']){
+                <div class="small text-danger">Categoria tiene que tener máximo 20 caracteres</div>
+              }
+              @if (categoria.errors['minlength']){
+                <div class="small text-danger">Categoria tiene que tener mínimo 3 caracteres</div>
+              }
+              @if (categoria.errors['notOnlyWhiteSpace']){
+              <div class="small text-danger">Categoría no puede ser solo espacios en blanco</div>
+            }
+              @if (categoria.errors['forbiddenWord']){
+                <div class="small text-danger">Categoría no puede contener la palabra <strong>sex</strong></div>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control"
+                 formControlName="edadMinima"
+                 id="edadMinima" placeholder="Edad Mínima">
+          <label for="edadMinima">Edad Mínima</label>
+          @if (edadMinima.invalid && (edadMinima.dirty || edadMinima.touched)){
+            <div class="alert alert-danger">
+              @if (edadMinima.errors['required']){
+                <div class="small text-danger">Edad mínima es obligatorio</div>
+              }
+              @if (edadMinima.errors['max']){
+                <div class="small text-danger">Edad mínima no puede ser superior a 100 años</div>
+              }
+              @if (edadMinima.errors['min']){
+                <div class="small text-danger">Edad mínima no puede ser negativa</div>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-floating mb-3">
+          <input type="number" class="form-control"
+                 formControlName="precio"
+                 id="precio" placeholder="Precio">
+          <label for="precio">Precio</label>
+          @if (precio.invalid && (precio.dirty || precio.touched)){
+            <div class="alert alert-danger">
+              @if (precio.errors['required']){
+                <div class="small text-danger">Precio es obligatorio</div>
+              }
+              @if (precio.errors['min']){
+                <div class="small text-danger">Precio mínimo tiene que ser superior a 0</div>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control"
+                 formControlName="imagen"
+                 id="imagen" placeholder="Imagen">
+          <label for="imagen">Imagen</label>
+          @if (imagen.invalid && (imagen.dirty || imagen.touched)){
+            <div class="alert alert-danger">
+              @if (imagen.errors['required']){
+                <div class="small text-danger">Imagen es obligatorio</div>
+              }
+              @if (imagen.errors['minlength']){
+                <div class="small text-danger">Imagen tiene que tener mínimo 7 caracteres</div>
+              }
+              @if (imagen.errors['notOnlyWhiteSpace']){
+                <div class="small text-danger">Imagen no puede ser solo espacios en blanco</div>
+              }
+              @if (imagen.errors['forbiddenWord']){
+                <div class="small text-danger">Imagen no puede contener la palabra <strong>sex</strong></div>
+              }
+            </div>
+          }
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-2 ">
+            <button class="btn btn-outline-success"
+                    type="submit">SAVE</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-4 offset-md-2">
+      <div class="card shadow">
+        <div class="card-header bg-light-subtle">
+          <h5 class="card-title text-capitalize">{{nombre.value? nombre.value : 'Nombre del juguete'}}</h5>
+        </div>
+        <img [src]="imagen.value? imagen.value : '/images/no-image-icon.png'" [alt]="nombre.value" class="card-img-top">
+        <div class="card-body">
+          <p class="badge bg-primary">{{categoria.value? categoria.value : 'Categoría'}}</p>
+          <p><strong>Edad mínima: </strong><span class="text-primary">{{edadMinima.value? edadMinima.value : 0}}</span></p>
+        </div>
+        <div class="card-footer d-flex justify-content-between">
+          @if (precio.value){
+            <p>{{precio.value | currency: 'EUR'}}</p>
+          } @else {
+            <p>{{0 | currency: 'EUR'}}</p>
+          }
+          <h4><fa-icon  [icon]="faEdit" class="text-primary"></fa-icon>
+            <fa-icon  [icon]="faTrashCan" class="text-danger"></fa-icon> </h4>
+        </div>
+      </div>
+
+    </div>
+  </div>
+}  @else {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}

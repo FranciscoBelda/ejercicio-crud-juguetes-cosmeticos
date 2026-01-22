@@ -1,0 +1,183 @@
+@if (loaded) {
+  <div class="row">
+    <div class="col-12">
+      <h2 class="text-center text-secondary">{{ id ? 'Editando ' + name.value : 'Nuevo cosmético' }}</h2>
+    </div>
+    <div class="col-md-8">
+      <form [formGroup]="formCosmetico" (ngSubmit)="onSubmit()">
+        <div class="form-floating mb-3 ">
+          <input type="text" class="form-control"
+                 [class.is-invalid]="name.touched&&name.invalid"
+                 [class.is-valid]="name.valid"
+                 formControlName="name"
+                 id="name" placeholder="Nombre">
+          <label for="name">Nombre</label>
+          @if (name.invalid && (name.dirty || name.touched)){
+              @if (name.errors['required']){
+                <div class="invalid-feedback is-invalid">Nombre es obligatorio</div>
+              }
+              @if (name.errors['maxlength']){
+                <div class="invalid-feedback is-invalid">Nombre máximo 40 caracteres</div>
+              }
+              @if (name.errors['minlength']){
+                <div class="invalid-feedback is-invalid">Nombre mínimo 2 caracteres</div>
+              }
+              @if (name.errors['notOnlyWhiteSpace']){
+                <div class="invalid-feedback is-invalid">Nombre no puede ser solo espacios en blanco</div>
+              }
+              @if (name.errors['forbiddenWord']){
+                <div class="invalid-feedback is-invalid">Nombre no puede contener la palabra <strong>drug</strong></div>
+              }
+          }
+        </div>
+        <div class="row justify-content-center">
+          <div class="col-md-5">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control"
+                     [class.is-invalid]="brand.touched&&brand.invalid"
+                     [class.is-valid]="brand.valid"
+                     formControlName="brand"
+                     id="brand" placeholder="Marca">
+              <label for="brand">Marca</label>
+              @if (brand.invalid && (brand.dirty || brand.touched)){
+                @if (brand.errors['required']){
+                  <div class="invalid-feedback is-invalid">Marca es obligatorio</div>
+                }
+                @if (brand.errors['maxlength']){
+                  <div class="invalid-feedback is-invalid">Marca máximo 20 caracteres</div>
+                }
+                @if (brand.errors['minlength']){
+                  <div class="invalid-feedback is-invalid">Marca mínimo 2 caracteres</div>
+                }
+                @if (brand.errors['notOnlyWhiteSpace']){
+                  <div class="invalid-feedback is-invalid">Marca no puede ser solo espacios en blanco</div>
+                }
+                @if (brand.errors['forbiddenWord']){
+                  <div class="invalid-feedback is-invalid">Marca no puede contener la palabra <strong>drug</strong></div>
+                }
+              }
+            </div>
+          </div>
+          <div class="col-md-5">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control"
+                     [class.is-invalid]="type.touched&&type.invalid"
+                     [class.is-valid]="type.valid"
+                     formControlName="type"
+                     id="type" placeholder="Tipo">
+              <label for="type">Tipo</label>
+              @if (type.invalid && (type.dirty || type.touched)){
+                @if (type.errors['required']){
+                  <div class="invalid-feedback is-invalid">Tipo es obligatorio</div>
+                }
+                @if (type.errors['maxlength']){
+                  <div class="invalid-feedback is-invalid">Tipo máximo 20 caracteres</div>
+                }
+                @if (type.errors['minlength']){
+                  <div class="invalid-feedback is-invalid">Tipo mínimo 2 caracteres</div>
+                }
+                @if (type.errors['notOnlyWhiteSpace']){
+                  <div class="invalid-feedback is-invalid">Tipo no puede ser solo espacios en blanco</div>
+                }
+                @if (type.errors['forbiddenWord']){
+                  <div class="invalid-feedback is-invalid">Tipo no puede contener la palabra <strong>drug</strong></div>
+                }
+              }
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class="form-floating mb-3">
+              <input type="number" class="form-control"
+                     [class.is-invalid]="price.touched&&price.invalid"
+                     [class.is-valid]="price.valid"
+                     formControlName="price"
+                     id="price" placeholder="Precio">
+              <label for="price">Precio</label>
+              @if (price.invalid && (price.dirty || price.touched)){
+                @if (price.errors['required']){
+                  <div class="invalid-feedback is-invalid">Precio es obligatorio</div>
+                }
+                @if (price.errors['minValue']){
+                  <div class="invalid-feedback is-invalid">Precio no puede ser 0 o negativo</div>
+                }
+              }
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating mb-3">
+              <input type="text" class="form-control"
+                     [class.is-invalid]="image.touched&&image.invalid"
+                     [class.is-valid]="image.valid"
+                     formControlName="image"
+                     id="image" placeholder="Imagen">
+              <label for="image">Imagen</label>
+              @if (image.invalid && (image.dirty || image.touched)){
+              @if (image.errors['required']){
+                <div class="invalid-feedback is-invalid">Tipo es obligatorio</div>
+              }
+              @if (image.errors['minlength']){
+                <div class="invalid-feedback is-invalid">Tipo mínimo 7 caracteres</div>
+              }
+              @if (image.errors['notOnlyWhiteSpace']){
+                <div class="invalid-feedback is-invalid">Tipo no puede ser solo espacios en blanco</div>
+              }
+              @if (image.errors['forbiddenWord']){
+                <div class="invalid-feedback is-invalid">Tipo no puede contener la palabra <strong>drug</strong></div>
+              }
+              @if (image.errors['allowedExtension']){
+                <div class="invalid-feedback is-invalid">Tipo solo puede ser .jpg</div>
+              }
+            }
+            </div>
+          </div>
+          <div class="col-md-2 text-center">
+            <button class="btn btn-outline-primary" type="submit">ENVIAR</button>
+          </div>
+        </div>
+
+      </form>
+    </div>
+    <div class="col-md-3 offset-md-1">
+      <div class="card shadow-sm">
+        <img [src]="image.value? image.value : '/images/no-image-icon.png'" [alt]="name" class="card-img-top"/>
+        <div class="card-body">
+          <h4 class="text-secondary text-capitalize">{{ name.value ? name.value : 'Nombre' }}</h4>
+          <p class="card-text text-capitalize">
+            {{ brand.value ? brand.value : 'Marca' }}
+          </p>
+          <p class="card-text">
+            <span class="badge bg-primary p-1 text-capitalize">{{ type.value ? type.value : 'Tipo' }}</span>
+          </p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil-square"></i>
+              </button>
+            </div>
+            @if (price.value) {
+              <small class="text-body-secondary">{{ price.value | currency: 'EUR' }}</small>
+            } @else {
+              <small class="text-body-secondary">{{ 0 | currency: 'EUR' }}</small>
+            }
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  @if (show){
+    <ngb-toast
+      class="toast-container position-fixed top-0 end-0 p-3" style="z-index: 1200"
+      [autohide]="true"
+      [delay]="1000"
+      [class]="toast.className"
+      >{{toast.text}}</ngb-toast>
+  }
+
+} @else {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border text-info" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}

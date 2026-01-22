@@ -1,0 +1,89 @@
+@if (loaded) {
+  <div class="row my-3 justify-content-center">
+    <div class="col-md-6 my-4">
+      <div class="input-group">
+        <span class="input-group-text">
+          <i class="bi bi-search"></i>
+        </span>
+        <input type="search" class="form-control" placeholder="Search" (input)="buscar($event)">
+      </div>
+
+    </div>
+    <div class="col-12 d-flex justify-content-center">
+      <ngb-pagination
+        [(page)]="currentPage"
+        [pageSize]="10"
+        [collectionSize]="apiData.info.total"
+        [maxSize]="3"
+        [boundaryLinks]="true"
+        [ellipses]="true"
+        [rotate]="true"
+        (pageChange)="onPageChange($event)"></ngb-pagination>
+
+    </div>
+
+    @for (cosmetico of cosmeticoList(); track cosmetico._id) {
+      <div class="col-md-3 my-2">
+        <div class="card shadow-sm">
+          <img [src]="cosmetico.image" [alt]="cosmetico.name" class="card-img-top"/>
+          <div class="card-body">
+            <h4 class="text-secondary text-capitalize">{{cosmetico.name}}</h4>
+            <p class="card-text text-capitalize">
+              {{cosmetico.brand}}
+            </p>
+            <p class="card-text">
+              <span class="badge bg-primary p-1 text-capitalize">{{cosmetico.type}}</span>
+            </p>
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <button type="button"  data-bs-toggle="modal" [attr.data-bs-target]="'#modal-'+cosmetico._id" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i> </button>
+                <button type="button" [routerLink]="'/cosmeticos/edit/'+cosmetico._id" class="btn btn-sm btn-outline-secondary"><i class="bi bi-pencil-square"></i> </button>
+              </div>
+              <small class="text-primary pointer" (click)="addToCart(cosmetico)">
+                <button type="button"
+                        class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-cart"></i> </button>
+                {{cosmetico.price | currency: 'EUR'}}</small></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div class="modal fade"  [id]="'modal-'+cosmetico._id" tabindex="-1" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header bg-danger">
+              <h1 class="modal-title text-light fs-5" id="ModalLabel">Borrar cosmético</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              ¿Desea borrar el cosmético <strong><span class="text-danger">{{cosmetico.name}}</span></strong>?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteCosmetico(cosmetico._id)">BORRAR</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+    <div class="col-12 d-flex justify-content-center mt-5">
+      <ngb-pagination
+        [(page)]="currentPage"
+        [pageSize]="10"
+        [collectionSize]="apiData.info.total"
+        [maxSize]="3"
+        [boundaryLinks]="true"
+        [ellipses]="true"
+        [rotate]="true"
+        (pageChange)="onPageChange($event)"></ngb-pagination>
+
+    </div>
+  </div>
+} @else {
+  <div class="d-flex justify-content-center">
+    <div class="spinner-border text-info" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+}

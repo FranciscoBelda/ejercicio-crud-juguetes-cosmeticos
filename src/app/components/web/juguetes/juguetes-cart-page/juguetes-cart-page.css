@@ -1,0 +1,4 @@
+tfoot tr th{
+  background-color: var(--bs-success);
+  color: var(--bs-light);
+}

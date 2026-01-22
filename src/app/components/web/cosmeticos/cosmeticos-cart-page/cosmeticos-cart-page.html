@@ -1,0 +1,36 @@
+<div class="row my-5 justify-content-center">
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Juguete</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col">Subtotal</th>
+      </tr>
+      </thead>
+      <tbody>
+        @for (cosmetico of cartItems(); track cosmetico._id) {
+          <tr>
+            <th scope="row">{{$index + 1}}</th>
+            <td>{{cosmetico.name}}</td>
+            <td>{{cosmetico.quantity}}</td>
+            <td>{{cosmetico.price}}</td>
+            <td>{{cosmetico.price * cosmetico.quantity}}</td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+      <tr class="bg-primary-subtle text-light">
+        <th scope="col">#</th>
+        <th scope="col">Total</th>
+        <th scope="col">{{cartTotalItems()}}</th>
+        <th scope="col"></th>
+        <th scope="col">{{cartTotalPrice()}}</th>
+      </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+

@@ -1,0 +1,9 @@
+.card img{
+  height: 300px;
+  overflow: hidden;
+}
+
+fa-icon:hover, .pointer:hover{
+  cursor: pointer;
+}
+
