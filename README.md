@@ -1,59 +1,95 @@
-# 03CrudJuguetes
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.0.
 
-## Development server
+# Gestión de Inventario - Juguetes y Cosméticos
 
-To start a local development server, run:
+Este proyecto es una aplicación frontend desarrollada con **Angular** diseñada para gestionar el inventario de dos categorías de productos: **Juguetes** y **Cosméticos**. La aplicación permite realizar operaciones CRUD (Crear, Leer, Actualizar y Borrar) consumiendo una API REST externa.
 
+## 🚀 Funcionalidades
+
+* **Panel de Control Dual**: Gestión segregada para el catálogo de juguetes y el de cosméticos.
+* **Operaciones CRUD**:
+* Listado dinámico de productos.
+* Formularios de alta de nuevos artículos.
+* Edición de productos existentes.
+* Eliminación con confirmación.
+
+
+* **Buscador en tiempo real**: Filtrado de productos por nombre o categoría.
+* **Validaciones Avanzadas**: Uso de `ReactiveForms` para asegurar la integridad de los datos (precios positivos, campos obligatorios, etc.).
+
+## 🛠️ Tecnologías Utilizadas
+
+* **Angular 17+** (o versión correspondiente).
+* **TypeScript**: Tipado estricto para modelos de datos.
+* **Bootstrap / Ng-Bootstrap**: Para un diseño responsivo y componentes de interfaz (modales, alertas).
+* **Font Awesome**: Iconografía para acciones (editar, eliminar).
+* **RxJS**: Gestión de flujos de datos asíncronos y peticiones HTTP.
+
+## 📋 Requisitos Previos
+
+* [Node.js](https://nodejs.org/) (LTS)
+* [Angular CLI](https://angular.io/cli) instalada de forma global:
+```bash
+npm install -g @angular/cli
+
+```
+
+
+
+## 🔧 Instalación
+
+1. **Clonar el repositorio:**
+```bash
+git clone https://github.com/FranciscoBelda/ejercicio-crud-juguetes-cosmeticos.git
+cd ejercicio-crud-juguetes-cosmeticos
+
+```
+
+
+2. **Instalar dependencias:**
+```bash
+npm install
+
+```
+
+
+3. **Configuración del Backend:**
+Asegúrate de tener la API REST ejecutándose y configura la URL base en `src/environments/environment.ts`:
+```typescript
+export const environment = {
+  production: false,
+  apiUrl: 'http://localhost:3000/api/v1' // Ajustar según tu servidor
+};
+
+```
+
+
+4. **Ejecutar la aplicación:**
 ```bash
 ng serve
+
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+Navega a `http://localhost:4200/`.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 📂 Estructura del Proyecto
 
-```bash
-ng generate component component-name
-```
+* `/src/app/components`: Componentes para el listado y los formularios de juguetes y cosméticos.
+* `/src/app/services`: Lógica de comunicación con la API (peticiones GET, POST, PUT, DELETE).
+* `/src/app/interfaces`: Definición de las interfaces `Juguete` y `Cosmetico`.
+* `/src/app/shared`: Componentes comunes como Navbar o Footer.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🛡️ Validaciones Implementadas
 
-```bash
-ng generate --help
-```
+El proyecto incluye validadores personalizados en los formularios para:
 
-## Building
+* Evitar nombres de productos duplicados (si la lógica lo requiere).
+* Controlar que el stock sea un número entero.
+* Validar formatos de precio mediante expresiones regulares.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+**Autor:** [Francisco Belda](https://github.com/FranciscoBelda)
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Propósito:** Ejercicio académico para la práctica de Angular y consumo de servicios REST.
